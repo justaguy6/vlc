@@ -1,13 +1,26 @@
 #include <mutex>
 #include <iostream>
 #include <string>
-#include <StdInt.h>
-#include <windows.h> 
+#include <stdint.h>
+#include <sstream>
 
 using std::string;
 using namespace std;
 
 /////////////////////////////////////////////////////////////////////////////////////
+
+// https://stackoverflow.com/questions/12975341/to-string-is-not-a-member-of-std-says-g-mingw
+#ifdef ANDROID
+namespace patch
+{
+    template < typename T > std::string to_string( const T& n )
+    {
+        std::ostringstream stm ;
+        stm << n ;
+        return stm.str() ;
+    }
+}
+#endif
 
 LibVLC::LibVLC(void)
 {
@@ -149,7 +162,11 @@ void LibVLC::setPath(const char* path)
 	if (libVlcMediaItem!=nullptr)
 	{
 		std::string sa = "input-repeat=";
+		#ifdef ANDROID
+		sa += patch::to_string(repeat);
+		#else
 		sa += std::to_string(repeat);
+		#endif
 		libvlc_media_add_option(libVlcMediaItem, sa.c_str() );	
 		//if (repeat==-1)
 			//libvlc_media_add_option(libVlcMediaItem, "input-repeat=-1" );	
@@ -379,17 +396,14 @@ void LibVLC::setXwindow(uint32_t drawable)
 {
 	libvlc_media_player_set_xwindow(*this, drawable);
 }
-
 uint32_t LibVLC::xwindow()
 {
 	return libvlc_media_player_get_xwindow(*this);
 }
-
 void LibVLC::setHwnd(void * drawable)
 {
 	libvlc_media_player_set_hwnd(*this, drawable);
 }
-
 void* LibVLC::hwnd()
 {
 	return libvlc_media_player_get_hwnd(*this);
