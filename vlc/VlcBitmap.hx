@@ -1,4 +1,4 @@
-package vlc.bitmap;
+package vlc;
 
 #if cpp
 import cpp.NativeArray;
@@ -12,14 +12,14 @@ import openfl.display3D.textures.RectangleTexture;
 import openfl.errors.Error;
 import openfl.events.Event;
 import openfl.geom.Rectangle;
-import vlc.lib.LibVLC;
+import vlc.LibVLC;
 
 /**
  * ...
  * @author Tommy S
  */
 @:cppFileCode('#include "LibVLC.cpp"')
-class VlcBitmap extends Bitmap
+class VlcBitmap extends VlcBitmap
 {
 	/////////////////////////////////////////////////////////////////////////////////////
 	// ===================================================================================
