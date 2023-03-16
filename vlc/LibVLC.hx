@@ -12,7 +12,7 @@ import cpp.UInt8;
  * @author Tommy S
  */
 //
-@:buildXml('<include name="${vlc}/vlc/lib/LibVLCBuild.xml" />')
+@:buildXml('<include name="${haxelib:vlc}/vlc/lib/LibVLCBuild.xml" />')
 
 @:include("LibVLC.h")
 @:unreflective
