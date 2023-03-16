@@ -12,7 +12,7 @@
 		<lib name='${CPP_DIR}/lib/libvlccore.lib' if='windows'/>
 	<section if="android">
             
-            <lib name='${haxelib:hxCodec}/ndll/Android/libvlc-64.so' if='HXCPP_ARM64' />	
+            <lib name='${haxelib:vlc}/ndll/Android/libvlc-64.so' if='HXCPP_ARM64' />	
 		
 	</target>
 
