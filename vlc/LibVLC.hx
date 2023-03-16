@@ -1,12 +1,9 @@
 package vlc;
 
-import cpp.Callable;
-import cpp.Function;
+#if cpp
 import cpp.Pointer;
-import cpp.RawPointer;
 import cpp.UInt8;
-import haxe.io.ArrayBufferView;
-import lime.utils.UInt8Array;
+#end
 
 // import cpp.Void;
 
@@ -15,7 +12,8 @@ import lime.utils.UInt8Array;
  * @author Tommy S
  */
 //
-@:buildXml('<include name="../../../../source/vlc/LibVLCBuild.xml" />')
+@:buildXml('<include name="${haxelib:vlc}/vlc/lib/LibVLCBuild.xml" />')
+
 @:include("LibVLC.h")
 @:unreflective
 @:keep
@@ -73,8 +71,9 @@ extern class LibVLC
 	@:native("getHeight")
 	public function getHeight():Int;
 
-	// @:native("getMeta")
-	// public function getMeta(meta:Dynamic):String;
+	@:native("getMeta")
+	public function getMeta(meta:Dynamic):String;
+
 	@:native("isPlaying")
 	public function isPlaying():Bool;
 
@@ -109,10 +108,12 @@ extern class LibVLC
 	public function getRepeat():Int;
 
 	@:native("setRepeat")
-	public function setRepeat(repeat:Int = -1):Void;
+	public function setRepeat(repeat:Int = 1):Void;
 
+	#if cpp
 	@:native("getPixelData")
 	public function getPixelData():Pointer<UInt8>;
+	#end
 
 	@:native("getFPS")
 	public function getFPS():Float;
@@ -122,6 +123,6 @@ extern class LibVLC
 
 	public inline function dispose():Void
 	{
-		untyped __cpp__('::delete this');
+		// untyped __cpp__('::delete this');
 	}
 }
