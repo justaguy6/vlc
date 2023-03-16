@@ -10,6 +10,10 @@
 	<target id='haxe' tool='linker' toolid='exe'>
 		<lib name='${CPP_DIR}/lib/libvlc.lib' if='windows'/>
 		<lib name='${CPP_DIR}/lib/libvlccore.lib' if='windows'/>
+	<section if="android">
+            
+            <lib name='${haxelib:hxCodec}/ndll/Android/libvlc-64.so' if='HXCPP_ARM64' />	
+		
 	</target>
 
 	<target id="haxe" tool="linker" if="macos">
