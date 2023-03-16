@@ -46,7 +46,7 @@ class FlxVideo extends FlxBasic {
 		});
 		netStream.play(name);
 
-		#elseif (desktop && android)
+		#elseif (desktop || android)
 		// by Polybius, check out PolyEngine! https://github.com/polybiusproxy/PolyEngine
 
 		vlcBitmap = new VlcBitmap();
