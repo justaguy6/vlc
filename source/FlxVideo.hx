@@ -14,7 +14,7 @@ class FlxVideo extends FlxBasic {
 	#if VIDEOS_ALLOWED
 	public var finishCallback:Void->Void = null;
 	
-	#if desktop
+	#if (desktop || android)
 	public static var vlcBitmap:VlcBitmap;
 	#end
 
@@ -46,7 +46,7 @@ class FlxVideo extends FlxBasic {
 		});
 		netStream.play(name);
 
-		#elseif desktop
+		#elseif (desktop && android)
 		// by Polybius, check out PolyEngine! https://github.com/polybiusproxy/PolyEngine
 
 		vlcBitmap = new VlcBitmap();
@@ -67,9 +67,10 @@ class FlxVideo extends FlxBasic {
 		#end
 	}
 
-	#if desktop
+	
 	function checkFile(fileName:String):String
 	{
+		#if desktop 
 		var pDir = "";
 		var appDir = "file:///" + Sys.getCwd() + "/";
 
@@ -79,6 +80,9 @@ class FlxVideo extends FlxBasic {
 			pDir = "file:///";
 
 		return pDir + fileName;
+		#elseif android
+		return "file://" + fileName;
+		#end
 	}
 	
 	public static function onFocus() {
@@ -129,5 +133,5 @@ class FlxVideo extends FlxBasic {
 			}
 		}
 	#end
-	#end
+	
 }
